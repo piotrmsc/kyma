@@ -43,6 +43,19 @@ data:
         "path": "/spec/template/spec/containers/0/args",
         "value": ["discovery", "--webhookEndpoint", "http://istio-webhook:5000"]
       }
+      {{ if .Values.global.isLocalEnv }}
+      ,
+      {
+        "op": "replace",
+        "path": "/spec/template/spec/containers/0/resources/requests/memory",
+        "value": "128Mi"
+      },
+      {
+        "op": "add",
+        "path": "/spec/template/spec/containers/0/resources/limits/memory",
+        "value": "256Mi"
+      }
+      {{ end }}
     ]
 
   istio-policy.deployment.patch.json: |
