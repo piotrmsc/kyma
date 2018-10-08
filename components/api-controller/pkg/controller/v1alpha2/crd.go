@@ -78,11 +78,11 @@ func Crd(domainName string) *k8sApiExtensions.CustomResourceDefinition {
 													Properties: map[string]k8sApiExtensions.JSONSchemaProps{
 														"issuer": {
 															Type:    "string",
-															Pattern: urlPattern,
+															Pattern: issuerPattern,
 														},
 														"jwksUri": {
 															Type:    "string",
-															Pattern: urlPattern,
+															Pattern: jwksURIPattern,
 														},
 													},
 												},
@@ -101,7 +101,8 @@ func Crd(domainName string) *k8sApiExtensions.CustomResourceDefinition {
 
 const (
 	hostnamePatternFormat = `^([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]{0,62}[A-Za-z0-9])(\.%s)?$`
-	urlPattern      = `^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)`
+	jwksURIPattern      = `^(?:https?:\/\/)(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)`
+	issuerPattern      = `(?:https:\/\/)(?:[^@\/\n]+@)?([^:\/\n]+)|([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]+)$`	
 )
 
 func hostnamePattern(domainName string) string {
